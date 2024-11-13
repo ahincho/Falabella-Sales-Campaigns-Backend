@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Campaigns
+  profiles:
+    active: ${SPRING_PROFILE:dev}

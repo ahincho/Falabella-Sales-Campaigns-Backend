@@ -31,14 +31,14 @@ public class RolePostgresPersistenceAdapter implements RolePersistencePort {
         specification = SpecificationUtils.applySpecificationIfNotNull(specification, RoleQuerySpecifications.descriptionContains(roleFilters.getDescription()));
         Pageable pageable = PageRequest.of(roleFilters.getPage().getNumber(), roleFilters.getPage().getSize(), Sort.by(Sort.Direction.ASC, "id"));
         Page<RoleEntity> roleEntities = this.roleJpaRepository.findAll(specification, pageable);
-        return
+        return 
     }
     @Override
     public Optional<Role> findRoleById(Integer roleId) {
-
+        return 
     }
     @Override
     public Optional<Role> findRoleByName(String roleName) {
-
+        return
     }
 }

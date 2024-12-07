@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/campaigns}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5434/campaigns}
     username: ${DATASOURCE_USERNAME:postgres}
     password: ${DATASOURCE_PASSWORD:postgres}
     hikari:
@@ -22,7 +22,7 @@ spring:
     open-in-view: false
   flyway:
     enabled: true
-    url: ${FLYWAY_URL:jdbc:postgresql://localhost:5432/campaigns}
+    url: ${FLYWAY_URL:jdbc:postgresql://localhost:5434/campaigns}
     user: ${FLYWAY_USER:postgres}
     password: ${FLYWAY_PASSWORD:postgres}
 logging:

@@ -1,7 +1,8 @@
-package com.falabella.sales.users.infrastructure.adapters.in.rest.dtos.users;
+package com.falabella.sales.users.infrastructure.adapters.in.rest.dtos;
 
 import com.falabella.sales.users.infrastructure.adapters.in.rest.annotations.ValidPositiveInteger;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -21,6 +22,7 @@ public class UserQueryRequest {
     private String page = "0";
     @NotBlank
     @ValidPositiveInteger
+    @Max(value = 50, message = "Page size must not exceed 50")
     private String size = "10";
     @Size(max = 32, message = "Firstname must be at most 32 characters")
     @Pattern(
@@ -40,8 +42,4 @@ public class UserQueryRequest {
         message = "Username must contain only alphanumeric characters without spaces"
     )
     private String username;
-    @Size(max = 64, message = "Email must not exceed 64 characters")
-    private String email;
-    @Pattern(regexp = "^(true|false)$", message = "Include roles must be a string with 'true' or 'false' as the value")
-    private String includeRoles;
 }

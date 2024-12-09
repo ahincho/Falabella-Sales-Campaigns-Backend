@@ -19,7 +19,7 @@ public class FindOneUserByIdService implements FindOneUserByIdServicePort {
     public User execute(Long userId) throws UserNotFoundException {
         Optional<User> user = this.userPersistencePort.findOneUserById(userId);
         if (user.isEmpty()) {
-            throw new UserNotFoundException("User with id " + userId + " not found");
+            throw new UserNotFoundException("User with id '" + userId + "' not found");
         }
         return user.get();
     }

@@ -1,4 +1,4 @@
-CREATE TABLE user_roles (
+CREATE TABLE users_roles (
     user_id BIGINT NOT NULL,
     role_id INT NOT NULL,
     PRIMARY KEY (user_id, role_id),

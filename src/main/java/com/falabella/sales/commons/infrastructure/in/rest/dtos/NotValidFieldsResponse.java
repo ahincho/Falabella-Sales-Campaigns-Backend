@@ -1,18 +1,20 @@
-package com.falabella.sales.users.infrastructure.adapters.in.rest.dtos.commons;
+package com.falabella.sales.commons.infrastructure.in.rest.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExceptionResponse {
+public class NotValidFieldsResponse {
     private String path;
     private String method;
     private Integer statusCode;
     private String statusDescription;
-    private String message;
+    private List<NotValidField> notValidFields;
 }

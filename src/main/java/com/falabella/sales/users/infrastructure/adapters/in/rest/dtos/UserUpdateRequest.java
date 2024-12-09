@@ -1,4 +1,4 @@
-package com.falabella.sales.users.infrastructure.adapters.in.rest.dtos.users;
+package com.falabella.sales.users.infrastructure.adapters.in.rest.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,30 +14,26 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCreateRequest {
-    @NotBlank(message = "")
-    @Size(min = 2, max = 32, message = "")
+public class UserUpdateRequest {
+    @Size(max = 32, message = "Firstname must be at most 32 characters")
     @Pattern(
         regexp = "^[a-zA-Z\\s]*$",
         message = "Firstname must contain only letters and spaces"
     )
     private String firstname;
-    @NotBlank(message = "")
-    @Size(min = 2, max = 32, message = "")
+    @Size(max = 32, message = "Lastname must be at most 32 characters")
     @Pattern(
         regexp = "^[a-zA-Z\\s]*$",
         message = "Lastname must contain only letters and spaces"
     )
     private String lastname;
-    @NotBlank(message = "")
-    @Size(min = 2, max = 32, message = "")
+    @Size(max = 32, message = "Username must be at most 32 characters")
     @Pattern(
         regexp = "^[a-zA-Z0-9]*$",
         message = "Username must contain only alphanumeric characters without spaces"
     )
     private String username;
-    @NotBlank(message = "")
     @Size(max = 64, message = "Email must not exceed 64 characters")
-    @Email(message = "")
+    @Email(message = "You must provide a valid email address")
     private String email;
 }

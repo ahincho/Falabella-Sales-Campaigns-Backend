@@ -1,9 +1,7 @@
 package com.falabella.sales.users.infrastructure.adapters.in.rest.controllers;
 
-import com.falabella.sales.commons.domain.models.Page;
 import com.falabella.sales.commons.domain.models.PaginationResult;
-import com.falabella.sales.commons.infrastructure.in.rest.dtos.PaginationResultResponse;
-import com.falabella.sales.commons.infrastructure.in.rest.utils.IntegerUtils;
+import com.falabella.sales.commons.infrastructure.adapters.in.rest.dtos.PaginationResultResponse;
 import com.falabella.sales.users.application.ports.in.FindUsersServicePort;
 import com.falabella.sales.users.domain.models.User;
 import com.falabella.sales.users.domain.models.UserFilters;

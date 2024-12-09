@@ -1,6 +1,6 @@
 package com.falabella.sales.users.infrastructure.adapters.in.rest.advices;
 
-import com.falabella.sales.commons.infrastructure.in.rest.dtos.ExceptionResponse;
+import com.falabella.sales.commons.infrastructure.adapters.in.rest.dtos.ExceptionResponse;
 import com.falabella.sales.users.domain.exceptions.RoleDuplicatedException;
 import com.falabella.sales.users.domain.exceptions.RoleNotFoundException;
 

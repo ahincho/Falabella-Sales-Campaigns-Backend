@@ -1,4 +1,4 @@
-package com.falabella.sales.commons.infrastructure.in.rest.dtos;
+package com.falabella.sales.commons.infrastructure.adapters.in.rest.dtos;
 
 import org.springframework.validation.FieldError;
 

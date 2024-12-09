@@ -1,7 +1,7 @@
 package com.falabella.sales.users.infrastructure.adapters.in.rest.controllers;
 
 import com.falabella.sales.commons.domain.models.PaginationResult;
-import com.falabella.sales.commons.infrastructure.in.rest.dtos.PaginationResultResponse;
+import com.falabella.sales.commons.infrastructure.adapters.in.rest.dtos.PaginationResultResponse;
 import com.falabella.sales.users.application.ports.in.FindRolesServicePort;
 import com.falabella.sales.users.domain.models.Role;
 import com.falabella.sales.users.domain.models.RoleFilters;

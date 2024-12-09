@@ -39,7 +39,7 @@ public class RolePostgresPersistenceAdapter implements RolePersistencePort {
     }
     @Override
     public List<Role> findRolesInIds(List<Integer> roleIds) {
-        return this.roleJpaRepository.findAllByIdIn(roleIds).stream()
+        return this.roleJpaRepository.findAllById(roleIds).stream()
             .map(RolePersistenceMapper::entityToDomain).toList();
     }
     private Pageable buildPageable(RoleFilters roleFilters) {

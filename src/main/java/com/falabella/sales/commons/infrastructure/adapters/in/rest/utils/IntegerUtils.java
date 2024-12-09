@@ -1,4 +1,4 @@
-package com.falabella.sales.commons.infrastructure.in.rest.utils;
+package com.falabella.sales.commons.infrastructure.adapters.in.rest.utils;
 
 public class IntegerUtils {
     public static Integer safeParseInteger(String value, Integer defaultValue) {

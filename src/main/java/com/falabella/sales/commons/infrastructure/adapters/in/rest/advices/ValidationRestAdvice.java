@@ -1,8 +1,8 @@
-package com.falabella.sales.commons.infrastructure.in.rest.advices;
+package com.falabella.sales.commons.infrastructure.adapters.in.rest.advices;
 
-import com.falabella.sales.commons.infrastructure.in.rest.dtos.ExceptionResponse;
-import com.falabella.sales.commons.infrastructure.in.rest.dtos.NotValidField;
-import com.falabella.sales.commons.infrastructure.in.rest.dtos.NotValidFieldsResponse;
+import com.falabella.sales.commons.infrastructure.adapters.in.rest.dtos.ExceptionResponse;
+import com.falabella.sales.commons.infrastructure.adapters.in.rest.dtos.NotValidField;
+import com.falabella.sales.commons.infrastructure.adapters.in.rest.dtos.NotValidFieldsResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 

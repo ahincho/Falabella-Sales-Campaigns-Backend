@@ -2,10 +2,13 @@ package com.falabella.sales.users.infrastructure.adapters.out.persistence.implem
 
 import com.falabella.sales.commons.domain.models.PaginationResult;
 import com.falabella.sales.users.application.ports.out.UserPersistencePort;
+import com.falabella.sales.users.domain.exceptions.UserNotFoundException;
 import com.falabella.sales.users.domain.models.User;
 import com.falabella.sales.users.domain.models.UserFilters;
+import com.falabella.sales.users.infrastructure.adapters.out.persistence.entities.RoleEntity;
 import com.falabella.sales.users.infrastructure.adapters.out.persistence.entities.UserEntity;
 import com.falabella.sales.users.infrastructure.adapters.out.persistence.mappers.UserPersistenceMapper;
+import com.falabella.sales.users.infrastructure.adapters.out.persistence.repositories.RoleJpaRepository;
 import com.falabella.sales.users.infrastructure.adapters.out.persistence.repositories.UserJpaRepository;
 import com.falabella.sales.users.infrastructure.adapters.out.persistence.specifications.SpecificationUtils;
 import com.falabella.sales.users.infrastructure.adapters.out.persistence.specifications.UserQuerySpecifications;
@@ -23,8 +26,13 @@ import java.util.Optional;
 
 @Service
 public class UserPostgresPersistenceAdapter implements UserPersistencePort {
+    private final RoleJpaRepository roleJpaRepository;
     private final UserJpaRepository userJpaRepository;
-    public UserPostgresPersistenceAdapter(UserJpaRepository userJpaRepository) {
+    public UserPostgresPersistenceAdapter(
+        RoleJpaRepository roleJpaRepository,
+        UserJpaRepository userJpaRepository
+    ) {
+        this.roleJpaRepository = roleJpaRepository;
         this.userJpaRepository = userJpaRepository;
     }
     @Override
@@ -35,8 +43,16 @@ public class UserPostgresPersistenceAdapter implements UserPersistencePort {
     }
     @Override
     @Transactional
-    public User assignRolesToUser(Long userId, List<Integer> roleIds) {
-        return null;
+    public User assignRolesToUser(Long userId, List<Integer> roleIds) throws UserNotFoundException {
+        Optional<UserEntity> userEntity = this.userJpaRepository.findById(userId);
+        if (userEntity.isEmpty()) {
+            throw new UserNotFoundException("User with id '" + userId + "' not found");
+        }
+        UserEntity userEntityToAdd = userEntity.get();
+        List<RoleEntity> roleEntities = this.roleJpaRepository.findAllById(roleIds);
+        userEntityToAdd.getRoles().addAll(roleEntities);
+        UserEntity savedUserEntity = this.userJpaRepository.save(userEntityToAdd);
+        return UserPersistenceMapper.entityToDomain(savedUserEntity);
     }
     @Override
     public PaginationResult<User> findUsers(UserFilters userFilters) {
@@ -81,8 +97,15 @@ public class UserPostgresPersistenceAdapter implements UserPersistencePort {
     }
     @Override
     @Transactional
-    public void revokeRolesToUser(Long userId, List<Long> roleIds) {
-
+    public void revokeRolesToUser(Long userId, List<Integer> roleIds) throws UserNotFoundException {
+        Optional<UserEntity> userEntity = this.userJpaRepository.findById(userId);
+        if (userEntity.isEmpty()) {
+            throw new UserNotFoundException("User with id '" + userId + "' not found");
+        }
+        List<RoleEntity> roleEntities = this.roleJpaRepository.findAllById(roleIds);
+        UserEntity userEntityToRevoke = userEntity.get();
+        roleEntities.forEach(userEntityToRevoke.getRoles()::remove);
+        this.userJpaRepository.save(userEntityToRevoke);
     }
     private Pageable buildPageable(UserFilters userFilters) {
         return PageRequest.of(userFilters.getPage().getNumber(), userFilters.getPage().getSize(), Sort.by(Sort.Direction.ASC, "id"));

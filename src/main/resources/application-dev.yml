@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/campaigns}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5434/campaigns}
     username: ${DATASOURCE_USERNAME:postgres}
     password: ${DATASOURCE_PASSWORD:postgres}
     hikari:

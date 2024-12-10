@@ -5,6 +5,7 @@ import com.falabella.sales.users.infrastructure.adapters.out.persistence.entitie
 import org.springframework.data.jpa.domain.Specification;
 
 public class RoleQuerySpecifications {
+    private RoleQuerySpecifications() {}
     public static Specification<RoleEntity> nameContains(String name) {
         return contains("name", name);
     }

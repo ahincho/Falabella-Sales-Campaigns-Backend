@@ -15,14 +15,15 @@ spring:
       validation-timeout: 5000
       leak-detection-threshold: 2000
       register-mbeans: false
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: none
     show-sql: ${JPA_SHOW_SQL:true}
     open-in-view: false
   flyway:
-    enabled: true
-    url: ${FLYWAY_URL:jdbc:postgresql://localhost:5434/campaigns}
+    enabled: ${FLYWAY_ENABLED:true}
+    url: ${FLYWAY_URL:jdbc:postgresql://localhost:5432/campaigns}
     user: ${FLYWAY_USER:postgres}
     password: ${FLYWAY_PASSWORD:postgres}
 logging:

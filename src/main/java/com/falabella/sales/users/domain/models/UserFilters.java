@@ -16,6 +16,4 @@ public class UserFilters {
     private String firstname;
     private String lastname;
     private String username;
-    private String email;
-    private Boolean includeRoles;
 }

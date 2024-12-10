@@ -18,10 +18,36 @@ public class UpdateOneUserByIdService implements UpdateOneUserByIdServicePort {
     }
     @Override
     public void execute(Long userId, User user) throws UserNotFoundException, UserDuplicatedException {
-        Optional<User> existingUser = this.userPersistencePort.findOneUserById(userId);
-        if (existingUser.isEmpty()) {
+        Optional<User> optionalExistingUser = this.userPersistencePort.findOneUserById(userId);
+        if (optionalExistingUser.isEmpty()) {
             throw new UserNotFoundException("User with id '" + userId + "' not found");
         }
+        if (user.getUsername() != null) {
+            Optional<User> existingUserByUsername = this.userPersistencePort.findOneUserByUsername(user.getUsername());
+            if (existingUserByUsername.isPresent() && !existingUserByUsername.get().getId().equals(userId)) {
+                throw new UserDuplicatedException("User with username '" + user.getUsername() + "' already exists");
+            }
+        }
+        if (user.getEmail() != null) {
+            Optional<User> existingUserByEmail = this.userPersistencePort.findOneUserByEmail(user.getEmail());
+            if (existingUserByEmail.isPresent() && !existingUserByEmail.get().getId().equals(userId)) {
+                throw new UserDuplicatedException("User with email '" + user.getEmail() + "' already exists");
+            }
+        }
+        User existingUser = optionalExistingUser.get();
+        if (user.getFirstname() != null) {
+            existingUser.setFirstname(user.getFirstname());
+        }
+        if (user.getLastname() != null) {
+            existingUser.setLastname(user.getLastname());
+        }
+        if (user.getUsername() != null) {
+            existingUser.setUsername(user.getUsername().toLowerCase());
+        }
+        if (user.getEmail() != null) {
+            existingUser.setEmail(user.getEmail().toLowerCase());
+        }
+        user.setCreatedAt(existingUser.getCreatedAt());
         this.userPersistencePort.updateOneUserById(userId, user);
     }
 }

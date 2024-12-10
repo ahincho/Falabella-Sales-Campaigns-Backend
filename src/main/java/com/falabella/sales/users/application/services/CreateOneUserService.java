@@ -17,11 +17,13 @@ public class CreateOneUserService implements CreateOneUserServicePort {
     @Override
     public User execute(User user) throws UserDuplicatedException, RoleNotFoundException {
         if (this.userPersistencePort.existsOneUserByUsername(user.getUsername())) {
-            throw new UserDuplicatedException("User with username " + user.getUsername() + " already exists");
+            throw new UserDuplicatedException("User with username '" + user.getUsername() + "' already exists");
         }
         if (this.userPersistencePort.existsOneUserByEmail(user.getEmail())) {
-            throw new UserDuplicatedException("User with email " + user.getEmail() + " already exists");
+            throw new UserDuplicatedException("User with email '" + user.getEmail() + "' already exists");
         }
+        user.setUsername(user.getUsername().toLowerCase());
+        user.setEmail(user.getEmail().toLowerCase());
         return this.userPersistencePort.createOneUser(user);
     }
 }

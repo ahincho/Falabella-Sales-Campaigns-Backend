@@ -1,7 +1,6 @@
-package com.falabella.sales.users.infrastructure.adapters.in.rest.dtos.users;
+package com.falabella.sales.users.infrastructure.adapters.in.rest.dtos;
 
-import com.falabella.sales.users.infrastructure.adapters.in.rest.annotations.ValidPositiveInteger;
-
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -15,13 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserQueryRequest {
-    @NotBlank
-    @ValidPositiveInteger
-    private String page = "0";
-    @NotBlank
-    @ValidPositiveInteger
-    private String size = "10";
+public class UserUpdateRequest {
     @Size(max = 32, message = "Firstname must be at most 32 characters")
     @Pattern(
         regexp = "^[a-zA-Z\\s]*$",
@@ -41,7 +34,6 @@ public class UserQueryRequest {
     )
     private String username;
     @Size(max = 64, message = "Email must not exceed 64 characters")
+    @Email(message = "You must provide a valid email address")
     private String email;
-    @Pattern(regexp = "^(true|false)$", message = "Include roles must be a string with 'true' or 'false' as the value")
-    private String includeRoles;
 }

@@ -13,5 +13,4 @@ import lombok.NoArgsConstructor;
 public class RoleFilters {
     private Page page;
     private String name;
-    private String description;
 }

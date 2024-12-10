@@ -1,6 +1,13 @@
+aws:
+  s3:
+    bucket-name: your-bucket-name
+    region: your-region
+  credentials:
+    access-key: your-access-key
+    secret-key: your-secret-key
 spring:
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5434/campaigns}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/campaigns}
     username: ${DATASOURCE_USERNAME:postgres}
     password: ${DATASOURCE_PASSWORD:postgres}
     hikari:
@@ -26,6 +33,12 @@ spring:
     url: ${FLYWAY_URL:jdbc:postgresql://localhost:5432/campaigns}
     user: ${FLYWAY_USER:postgres}
     password: ${FLYWAY_PASSWORD:postgres}
+springdoc:
+  api-docs:
+    path: ${SPRINGDOC_PATH:/api/docs}
+  swagger-ui:
+    path: ${SPRINGDOC_SWAGGER_PATH:/api/swagger/}
+    operations-sorter: method
 logging:
   level:
     org.hibernate.orm.connections.pooling: WARN

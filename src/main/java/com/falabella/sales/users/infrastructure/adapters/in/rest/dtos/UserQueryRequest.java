@@ -22,7 +22,7 @@ public class UserQueryRequest {
     private String page = "0";
     @NotBlank
     @ValidPositiveInteger
-    @Max(value = 50, message = "Page size must not exceed 50")
+    @Max(value = 25, message = "Page size must not exceed 25")
     private String size = "10";
     @Size(max = 32, message = "Firstname must be at most 32 characters")
     @Pattern(

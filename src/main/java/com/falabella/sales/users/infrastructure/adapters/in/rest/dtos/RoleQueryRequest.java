@@ -22,7 +22,7 @@ public class RoleQueryRequest {
     private String page = "0";
     @NotBlank
     @ValidPositiveInteger
-    @Max(value = 100, message = "Page size must not exceed 100")
+    @Max(value = 50, message = "Page size must not exceed 50")
     private String size = "10";
     @Size(max = 32, message = "Name must be at most 32 characters")
     @Pattern(

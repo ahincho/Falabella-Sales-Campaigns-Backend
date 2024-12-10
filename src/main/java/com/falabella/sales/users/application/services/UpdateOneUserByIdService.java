@@ -47,6 +47,7 @@ public class UpdateOneUserByIdService implements UpdateOneUserByIdServicePort {
         if (user.getEmail() != null) {
             existingUser.setEmail(user.getEmail().toLowerCase());
         }
+        user.setCreatedAt(existingUser.getCreatedAt());
         this.userPersistencePort.updateOneUserById(userId, user);
     }
 }

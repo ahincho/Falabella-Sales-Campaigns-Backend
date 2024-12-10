@@ -9,6 +9,7 @@ import com.falabella.sales.users.infrastructure.adapters.in.rest.dtos.UserQueryR
 import com.falabella.sales.users.infrastructure.adapters.in.rest.dtos.UserResponse;
 
 import com.falabella.sales.users.infrastructure.adapters.in.rest.mappers.UserRestMapper;
+
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;

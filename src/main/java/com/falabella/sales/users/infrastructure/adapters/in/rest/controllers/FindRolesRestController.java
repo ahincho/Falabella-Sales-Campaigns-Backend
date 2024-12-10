@@ -12,6 +12,7 @@ import com.falabella.sales.users.infrastructure.adapters.in.rest.mappers.RoleRes
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/roles")
+@PreAuthorize("hasRole('Admin')")
 public class FindRolesRestController {
     private final FindRolesServicePort findRolesServicePort;
     public FindRolesRestController(FindRolesServicePort findRolesServicePort) {

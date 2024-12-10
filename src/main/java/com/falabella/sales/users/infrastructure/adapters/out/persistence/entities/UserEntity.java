@@ -38,6 +38,7 @@ public class UserEntity {
     private String lastname;
     private String username;
     private String email;
+    private String password;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp

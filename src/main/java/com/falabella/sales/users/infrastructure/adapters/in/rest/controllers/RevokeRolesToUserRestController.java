@@ -7,6 +7,7 @@ import com.falabella.sales.users.domain.exceptions.UserNotFoundException;
 import com.falabella.sales.users.infrastructure.adapters.in.rest.dtos.UserRevokeRolesRequest;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@PreAuthorize("hasRole('Admin')")
 public class RevokeRolesToUserRestController {
     private final RevokeRolesToUserServicePort revokeRolesToUserServicePort;
     public RevokeRolesToUserRestController(RevokeRolesToUserServicePort revokeRolesToUserServicePort) {

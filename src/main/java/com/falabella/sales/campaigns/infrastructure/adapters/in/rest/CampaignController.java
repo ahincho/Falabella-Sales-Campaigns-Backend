@@ -4,7 +4,7 @@ import com.falabella.sales.campaigns.application.ports.in.CreateCampaignUseCase;
 import com.falabella.sales.campaigns.domain.models.Campaign;
 import com.falabella.sales.campaigns.infrastructure.adapters.in.rest.dtos.CampaignCreateRequest;
 import com.falabella.sales.campaigns.domain.models.CouponCampaign;
-import com.falabella.sales.config.AwsProperties;
+import com.falabella.sales.commons.infrastructure.configurations.aws.AwsProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

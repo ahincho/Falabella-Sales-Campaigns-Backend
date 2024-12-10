@@ -39,6 +39,7 @@ public class UserRestMapper {
             .lastname(userCreateRequest.getLastname())
             .username(userCreateRequest.getUsername())
             .email(userCreateRequest.getEmail())
+            .password(userCreateRequest.getPassword())
             .createdAt(null)
             .updatedAt(null)
             .build();

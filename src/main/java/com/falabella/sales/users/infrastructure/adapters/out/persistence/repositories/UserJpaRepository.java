@@ -18,6 +18,7 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, Long>, JpaS
     Page<UserEntity> findAll(Specification<UserEntity> specification, Pageable pageable);
     @EntityGraph(attributePaths = {"roles"})
     Optional<UserEntity> findById(Long userId);
+    @EntityGraph(attributePaths = {"roles"})
     Optional<UserEntity> findByUsernameIgnoreCase(String username);
     Optional<UserEntity> findByEmailIgnoreCase(String email);
     Boolean existsByUsernameIgnoreCase(String username);

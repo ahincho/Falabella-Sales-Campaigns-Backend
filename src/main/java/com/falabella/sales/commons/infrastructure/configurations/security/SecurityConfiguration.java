@@ -1,5 +1,6 @@
 package com.falabella.sales.commons.infrastructure.configurations.security;
 
+import com.falabella.sales.commons.application.services.Auth0JwtService;
 import com.falabella.sales.commons.application.services.UserDetailsServiceImpl;
 import com.falabella.sales.commons.infrastructure.adapters.in.rest.advices.CustomAccessDeniedHandler;
 import com.falabella.sales.commons.infrastructure.adapters.in.rest.advices.CustomAuthenticationEntryPoint;
@@ -18,6 +19,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,18 +32,18 @@ import java.util.List;
 public class SecurityConfiguration {
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final Auth0JwtService auth0JwtService;
     public SecurityConfiguration(
         CustomAuthenticationEntryPoint customAuthenticationEntryPoint,
         CustomAccessDeniedHandler customAccessDeniedHandler,
-        UserDetailsServiceImpl userDetailsServiceImpl
+        Auth0JwtService auth0JwtService
     ) {
         this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
         this.customAccessDeniedHandler = customAccessDeniedHandler;
-        this.userDetailsServiceImpl = userDetailsServiceImpl;
+        this.auth0JwtService = auth0JwtService;
     }
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
             .httpBasic(Customizer.withDefaults())
             .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
@@ -49,19 +51,21 @@ public class SecurityConfiguration {
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                 authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll();
+                authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.POST, "/api/v1/auth").permitAll();
                 authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
             })
             .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(this.customAuthenticationEntryPoint);
                 httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(this.customAccessDeniedHandler);
             })
+            .addFilterBefore(new JwtAuthorizationFilter(auth0JwtService), BasicAuthenticationFilter.class)
             .build();
     }
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsServiceImpl) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(this.userDetailsServiceImpl);
+        authenticationProvider.setUserDetailsService(userDetailsServiceImpl);
         return authenticationProvider;
     }
     @Bean

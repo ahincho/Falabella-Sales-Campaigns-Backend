@@ -5,6 +5,10 @@ aws:
   credentials:
     access-key: your-access-key
     secret-key: your-secret-key
+jwt:
+  expires: ${JWT_EXPIRES:300000}
+  secret: ${JWT_SECRET:a8127e4ac3051606e14599e584425b1e756b0be392a546111096c4946ca324f8}
+  issuer: ${JWT_ISSUER:falabella-campaigns-backend}
 spring:
   datasource:
     url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/campaigns}

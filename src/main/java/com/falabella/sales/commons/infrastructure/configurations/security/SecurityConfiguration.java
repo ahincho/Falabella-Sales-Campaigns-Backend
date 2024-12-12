@@ -1,15 +1,12 @@
 package com.falabella.sales.commons.infrastructure.configurations.security;
 
 import com.falabella.sales.commons.application.services.Auth0JwtService;
-import com.falabella.sales.commons.application.services.UserDetailsServiceImpl;
 import com.falabella.sales.commons.infrastructure.adapters.in.rest.advices.CustomAccessDeniedHandler;
 import com.falabella.sales.commons.infrastructure.adapters.in.rest.advices.CustomAuthenticationEntryPoint;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,15 +55,8 @@ public class SecurityConfiguration {
                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(this.customAuthenticationEntryPoint);
                 httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(this.customAccessDeniedHandler);
             })
-            .addFilterBefore(new JwtAuthorizationFilter(auth0JwtService), BasicAuthenticationFilter.class)
+            .addFilterBefore(new JwtValidationFilter(auth0JwtService), BasicAuthenticationFilter.class)
             .build();
-    }
-    @Bean
-    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsServiceImpl) {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(userDetailsServiceImpl);
-        return authenticationProvider;
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

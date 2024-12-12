@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@PreAuthorize("hasRole('Admin')")
+@PreAuthorize("hasAnyRole('Admin', 'Operator')")
 public class FindUsersRestController {
     private final FindUsersServicePort findUsersServicePort;
     public FindUsersRestController(FindUsersServicePort findUsersServicePort) {

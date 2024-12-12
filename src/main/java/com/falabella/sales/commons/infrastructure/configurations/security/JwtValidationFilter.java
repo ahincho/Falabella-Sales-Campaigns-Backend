@@ -1,6 +1,7 @@
 package com.falabella.sales.commons.infrastructure.configurations.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+
 import com.falabella.sales.commons.application.services.Auth0JwtService;
 
 import jakarta.servlet.FilterChain;
@@ -20,9 +21,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collection;
 
-public class JwtAuthorizationFilter extends OncePerRequestFilter {
+public class JwtValidationFilter extends OncePerRequestFilter {
     private final Auth0JwtService auth0JwtService;
-    public JwtAuthorizationFilter(Auth0JwtService auth0JwtService) {
+    public JwtValidationFilter(Auth0JwtService auth0JwtService) {
         this.auth0JwtService = auth0JwtService;
     }
     @Override

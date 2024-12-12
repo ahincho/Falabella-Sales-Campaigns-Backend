@@ -35,10 +35,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         Optional<User> optionalUser = this.userPersistencePort.findOneUserByUsername(username);
         if (optionalUser.isEmpty()) {
-            throw new UsernameNotFoundException("User with username '" + username + "' not found");
+            throw new BadCredentialsException("Bad credentials");
         }
         User user = optionalUser.get();
         Collection<? extends GrantedAuthority> grantedAuthorities = user.getRoles().stream()

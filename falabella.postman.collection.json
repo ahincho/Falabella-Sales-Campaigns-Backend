@@ -1,11 +1,42 @@
 {
 	"info": {
 		"_postman_id": "2b3eeafb-44b9-4fae-b089-5039e65317bc",
-		"name": "Falabella Campañas",
+		"name": "Falabella Campaigns",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28629003"
 	},
 	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Get JWT Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"cgonzalez\",\r\n    \"password\": \"cgonzalez\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostServer}}/{{auth}}",
+							"host": [
+								"{{hostServer}}"
+							],
+							"path": [
+								"{{auth}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Roles",
 			"item": [
@@ -15,7 +46,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostServer}}/{{roles}}?page=0&size=25&name=client",
+							"raw": "{{hostServer}}/{{roles}}?page=0&size=50&name=",
 							"host": [
 								"{{hostServer}}"
 							],
@@ -29,11 +60,11 @@
 								},
 								{
 									"key": "size",
-									"value": "25"
+									"value": "50"
 								},
 								{
 									"key": "name",
-									"value": "client"
+									"value": ""
 								}
 							]
 						}
@@ -43,6 +74,16 @@
 				{
 					"name": "Find One Role By Id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -58,6 +99,38 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwtToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -66,11 +139,14 @@
 				{
 					"name": "Create One User",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstname\": \"Elías Alberto\",\r\n    \"lastname\": \"González Pérez\",\r\n    \"username\": \"cgonzalez\",\r\n    \"email\": \"cgonzalez@example.com\"\r\n}",
+							"raw": "{\r\n    \"firstname\": \"Elías Alberto\",\r\n    \"lastname\": \"González Pérez\",\r\n    \"username\": \"cgonzalez\",\r\n    \"email\": \"cgonzalez@example.com\",\r\n    \"password\": \"cgonzalez\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -90,9 +166,9 @@
 					"response": []
 				},
 				{
-					"name": "Revoke Roles To User",
+					"name": "Add Roles To User",
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -104,13 +180,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostServer}}/{{users}}/3/roles",
+							"raw": "{{hostServer}}/{{users}}/1/roles",
 							"host": [
 								"{{hostServer}}"
 							],
 							"path": [
 								"{{users}}",
-								"3",
+								"1",
 								"roles"
 							]
 						}
@@ -123,7 +199,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostServer}}/{{users}}?page=0&size=50&firstname=&lastname=&username=",
+							"raw": "{{hostServer}}/{{users}}?page=0&size=25&firstname=&lastname=&username=",
 							"host": [
 								"{{hostServer}}"
 							],
@@ -137,7 +213,7 @@
 								},
 								{
 									"key": "size",
-									"value": "50"
+									"value": "25"
 								},
 								{
 									"key": "firstname",
@@ -162,13 +238,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostServer}}/{{users}}/3",
+							"raw": "{{hostServer}}/{{users}}/1",
 							"host": [
 								"{{hostServer}}"
 							],
 							"path": [
 								"{{users}}",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -207,22 +283,22 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{hostServer}}/{{users}}/1",
+							"raw": "{{hostServer}}/{{users}}/7",
 							"host": [
 								"{{hostServer}}"
 							],
 							"path": [
 								"{{users}}",
-								"1"
+								"7"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Add Roles To User Copy",
+					"name": "Revoke Roles To User",
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -234,24 +310,82 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostServer}}/{{users}}/3/roles",
+							"raw": "{{hostServer}}/{{users}}/1/roles",
 							"host": [
 								"{{hostServer}}"
 							],
 							"path": [
 								"{{users}}",
-								"3",
+								"1",
 								"roles"
 							]
 						}
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwtToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
-			"name": "Campañas",
+			"name": "Campaigns",
 			"item": [
+				{
+					"name": "Create One Campaign",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostServer}}/{{campaigns}}",
+							"host": [
+								"{{hostServer}}"
+							],
+							"path": [
+								"{{campaigns}}"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Find Campaigns",
 					"request": {
@@ -287,11 +421,468 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwtToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
-			"name": "Auth",
-			"item": []
+			"name": "API Gateway",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Get JWT Token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"cgonzalez\",\r\n    \"password\": \"cgonzalez\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{apiGateway}}/auth",
+									"host": [
+										"{{apiGateway}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Create One User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"Elías Alberto\",\r\n    \"lastname\": \"González Pérez\",\r\n    \"username\": \"cgonzalez\",\r\n    \"email\": \"cgonzalez@example.com\",\r\n    \"password\": \"cgonzalez\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{apiGateway}}/users",
+									"host": [
+										"{{apiGateway}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Roles To User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"roleIds\": [1, 3]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{apiGateway}}/users/",
+									"host": [
+										"{{apiGateway}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostServer}}/{{users}}?page=0&size=25&firstname=&lastname=&username=",
+									"host": [
+										"{{hostServer}}"
+									],
+									"path": [
+										"{{users}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "25"
+										},
+										{
+											"key": "firstname",
+											"value": ""
+										},
+										{
+											"key": "lastname",
+											"value": ""
+										},
+										{
+											"key": "username",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find One User By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostServer}}/{{users}}/1",
+									"host": [
+										"{{hostServer}}"
+									],
+									"path": [
+										"{{users}}",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update One User By Id",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"Angel Eduardo\",\r\n    \"lastname\": \"Hincho Jove\",\r\n    \"username\": \"ahincho\",\r\n    \"email\": \"ahincho@unsa.edu.pe\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostServer}}/{{users}}/1",
+									"host": [
+										"{{hostServer}}"
+									],
+									"path": [
+										"{{users}}",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete One User By Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{hostServer}}/{{users}}/7",
+									"host": [
+										"{{hostServer}}"
+									],
+									"path": [
+										"{{users}}",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Revoke Roles To User",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"roleIds\": [1, 3]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostServer}}/{{users}}/1/roles",
+									"host": [
+										"{{hostServer}}"
+									],
+									"path": [
+										"{{users}}",
+										"1",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{jwtToken}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "Find Roles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiGateway}}/roles",
+									"host": [
+										"{{apiGateway}}"
+									],
+									"path": [
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Role By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiGateway}}/roles/1",
+									"host": [
+										"{{apiGateway}}"
+									],
+									"path": [
+										"roles",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{jwtToken}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Campaigns",
+					"item": [
+						{
+							"name": "Create One Campaign",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{hostServer}}/{{campaigns}}",
+									"host": [
+										"{{hostServer}}"
+									],
+									"path": [
+										"{{campaigns}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Campaigns",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostServer}}/{{campaigns}}",
+									"host": [
+										"{{hostServer}}"
+									],
+									"path": [
+										"{{campaigns}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Campaign By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostServer}}/{{campaigns}}/1",
+									"host": [
+										"{{hostServer}}"
+									],
+									"path": [
+										"{{campaigns}}",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{jwtToken}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [
@@ -323,6 +914,11 @@
 			"type": "string"
 		},
 		{
+			"key": "auth",
+			"value": "api/v1/auth",
+			"type": "string"
+		},
+		{
 			"key": "roles",
 			"value": "api/v1/roles",
 			"type": "string"
@@ -335,6 +931,16 @@
 		{
 			"key": "campaigns",
 			"value": "api/v1/campaigns",
+			"type": "string"
+		},
+		{
+			"key": "jwtToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmYWxhYmVsbGEtY2FtcGFpZ25zLWJhY2tlbmQiLCJzdWIiOiJjZ29uemFsZXoiLCJhdXRob3JpdGllcyI6IlJPTEVfQWRtaW4sUk9MRV9DbGllbnQsUk9MRV9PcGVyYXRvciIsImlhdCI6MTczNDAyNTY0NywiZXhwIjoxNzM0MDI1OTQ3LCJqdGkiOiIxYTllNzA4My0wMzg0LTQwMDAtOTkzMy0xM2E2MDg4MTJiMmMiLCJuYmYiOjE3MzQwMjU2NDd9.6n0VwREjLB4fw6Nxa6Ny-fgeEQRn6GxUZ60QTglOE6E",
+			"type": "string"
+		},
+		{
+			"key": "apiGateway",
+			"value": "https://l91aozohbj.execute-api.us-east-2.amazonaws.com/production",
 			"type": "string"
 		}
 	]

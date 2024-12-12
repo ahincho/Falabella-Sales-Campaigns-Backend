@@ -18,6 +18,7 @@ public class User {
     private String lastname;
     private String username;
     private String email;
+    private String password;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Set<Role> roles;

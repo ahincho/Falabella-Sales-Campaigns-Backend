@@ -40,4 +40,7 @@ public class UserCreateRequest {
     @Size(max = 64, message = "Email must not exceed 64 characters")
     @Email(message = "You must provide a valid email address")
     private String email;
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, max = 32, message = "Password must be between 8 and 32 characters long")
+    private String password;
 }

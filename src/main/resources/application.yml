@@ -1,14 +1,5 @@
-aws:
-  s3:
-    bucket-name: your-bucket-name
-    region: your-region
-  credentials:
-    access-key: your-access-key
-    secret-key: your-secret-key
-    
 spring:
   application:
     name: Campaigns
   profiles:
     active: ${SPRING_PROFILE:dev}
-    

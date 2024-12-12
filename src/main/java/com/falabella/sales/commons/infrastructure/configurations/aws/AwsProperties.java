@@ -1,4 +1,4 @@
-package com.falabella.sales.config;
+package com.falabella.sales.commons.infrastructure.configurations.aws;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

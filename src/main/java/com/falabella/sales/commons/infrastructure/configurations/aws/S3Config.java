@@ -1,4 +1,4 @@
-package com.falabella.sales.config;
+package com.falabella.sales.commons.infrastructure.configurations.aws;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

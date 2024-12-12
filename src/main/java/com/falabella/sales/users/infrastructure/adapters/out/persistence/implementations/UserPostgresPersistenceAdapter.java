@@ -67,7 +67,7 @@ public class UserPostgresPersistenceAdapter implements UserPersistencePort {
     }
     @Override
     public Optional<User> findOneUserByUsername(String username) {
-        return this.userJpaRepository.findByUsernameIgnoreCase(username).map(UserPersistenceMapper::entityWithNoRolesToDomain);
+        return this.userJpaRepository.findByUsernameIgnoreCase(username).map(UserPersistenceMapper::entityToDomain);
     }
     @Override
     public Optional<User> findOneUserByEmail(String email) {

@@ -6,13 +6,19 @@ import com.falabella.sales.users.domain.exceptions.RoleNotFoundException;
 import com.falabella.sales.users.domain.exceptions.UserDuplicatedException;
 import com.falabella.sales.users.domain.models.User;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CreateOneUserService implements CreateOneUserServicePort {
     private final UserPersistencePort userPersistencePort;
-    public CreateOneUserService (UserPersistencePort userPersistencePort) {
+    private final PasswordEncoder passwordEncoder;
+    public CreateOneUserService (
+        UserPersistencePort userPersistencePort,
+        PasswordEncoder passwordEncoder
+    ) {
         this.userPersistencePort = userPersistencePort;
+        this.passwordEncoder = passwordEncoder;
     }
     @Override
     public User execute(User user) throws UserDuplicatedException, RoleNotFoundException {
@@ -24,6 +30,7 @@ public class CreateOneUserService implements CreateOneUserServicePort {
         }
         user.setUsername(user.getUsername().toLowerCase());
         user.setEmail(user.getEmail().toLowerCase());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return this.userPersistencePort.createOneUser(user);
     }
 }

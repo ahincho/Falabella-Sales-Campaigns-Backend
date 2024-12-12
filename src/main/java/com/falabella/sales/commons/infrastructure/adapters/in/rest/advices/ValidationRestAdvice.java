@@ -67,7 +67,6 @@ public class ValidationRestAdvice {
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionResponse> handleHttpMessageNotReadableException(
-        HttpMessageNotReadableException httpMessageNotReadableException,
         HttpServletRequest httpServletRequest
     ) {
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()

@@ -19,6 +19,7 @@ public class UserPersistenceMapper {
             .lastname(user.getLastname())
             .username(user.getUsername())
             .email(user.getEmail())
+            .password(user.getPassword())
             .createdAt(user.getCreatedAt() != null ? user.getCreatedAt() : null)
             .build();
     }
@@ -29,6 +30,7 @@ public class UserPersistenceMapper {
             .lastname(userEntity.getLastname())
             .username(userEntity.getUsername())
             .email(userEntity.getEmail())
+            .password(userEntity.getPassword())
             .createdAt(userEntity.getCreatedAt())
             .updatedAt(userEntity.getUpdatedAt())
             .roles(Optional.ofNullable(userEntity.getRoles())

@@ -7,6 +7,7 @@ CREATE TABLE campaigns (
     login_message TEXT,
     login_image VARCHAR(255),
     background_color VARCHAR(7),
+    home_image VARCHAR(255),
     home_message TEXT,
     home_message_image VARCHAR(255),
     message_text_color VARCHAR(7),

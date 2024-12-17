@@ -1,18 +1,30 @@
-package com.falabella.sales.campaigns.domain.models;
+package com.falabella.sales.campaigns.infrastructure.out.persistence.entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Campaign {
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "campaigns")
+@Entity(name = "campaign")
+public class CampaignEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer id;
     private String name;
     private String description;
@@ -28,5 +40,4 @@ public class Campaign {
     private String legalConditions;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<Coupon> coupons;
 }

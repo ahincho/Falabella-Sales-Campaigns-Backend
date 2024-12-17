@@ -19,15 +19,21 @@ public class AmazonS3ClientConfiguration {
         this.staticCredentialsProvider = staticCredentialsProvider;
     }
     @Bean
-    public S3Client s3Client() {
-        String region = amazonWebServicesProperties.getS3().getRegion();
-        return S3Client.builder()
-            .region(Region.of(region))
-            .credentialsProvider(staticCredentialsProvider)
-            .build();
+    public String s3Region() {
+        return this.amazonWebServicesProperties.getS3().getRegion();
     }
     @Bean
     public String s3Bucket() {
-        return amazonWebServicesProperties.getS3().getBucket();
+        return this.amazonWebServicesProperties.getS3().getBucket();
+    }
+    @Bean String cloudfrontEndpoint() {
+        return this.amazonWebServicesProperties.getCloudfront().getEndpoint();
+    }
+    @Bean
+    public S3Client s3Client() {
+        return S3Client.builder()
+            .region(Region.of(this.amazonWebServicesProperties.getS3().getRegion()))
+            .credentialsProvider(staticCredentialsProvider)
+            .build();
     }
 }

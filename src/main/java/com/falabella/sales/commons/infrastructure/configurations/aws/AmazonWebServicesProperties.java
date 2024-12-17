@@ -10,11 +10,16 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "aws")
 public class AmazonWebServicesProperties {
     private S3 s3;
+    private Cloudfront cloudfront;
     private Credentials credentials;
     @Data
     public static class S3 {
         private String bucket;
         private String region;
+    }
+    @Data
+    public static class Cloudfront {
+        private String endpoint;
     }
     @Data
     public static class Credentials {

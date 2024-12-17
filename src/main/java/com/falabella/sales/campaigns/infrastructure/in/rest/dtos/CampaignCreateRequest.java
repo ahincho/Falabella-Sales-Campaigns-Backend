@@ -30,6 +30,7 @@ public class CampaignCreateRequest {
     private String loginMessage;
     private MultipartFile loginImage;
     private String backgroundColor;
+    private MultipartFile homeImage;
     private String homeMessage;
     private MultipartFile homeMessageImage;
     private String messageTextColor;

@@ -12,6 +12,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -33,11 +36,14 @@ public class CampaignEntity {
     private String loginMessage;
     private String loginImage;
     private String backgroundColor;
+    private String homeImage;
     private String homeMessage;
     private String homeMessageImage;
     private String messageTextColor;
     private String couponUsageMessage;
     private String legalConditions;
+    @CreationTimestamp
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 }

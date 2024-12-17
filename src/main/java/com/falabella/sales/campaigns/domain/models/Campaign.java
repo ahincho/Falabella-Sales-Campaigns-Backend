@@ -21,6 +21,7 @@ public class Campaign {
     private String loginMessage;
     private String loginImage;
     private String backgroundColor;
+    private String homeImage;
     private String homeMessage;
     private String homeMessageImage;
     private String messageTextColor;

@@ -26,6 +26,6 @@ public class AwsS3Mapper {
         return instant.atOffset(ZoneOffset.UTC).toLocalDateTime();
     }
     private static String generateFileUrl(String cloudfrontEndpoint, String key) {
-        return String.format("%s/%s", cloudfrontEndpoint, key);
+        return String.format("%s%s", cloudfrontEndpoint, key);
     }
 }

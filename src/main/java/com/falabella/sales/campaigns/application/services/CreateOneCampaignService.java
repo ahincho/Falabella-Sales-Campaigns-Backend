@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreateOneCampaignService implements CreateOneCampaignServicePort {
-    private final static String DIRECTORY = "campaigns";
+    private static final String DIRECTORY = "campaigns";
     private final StoragePort storagePort;
     private final CampaignPersistencePort campaignPersistencePort;
     public CreateOneCampaignService(StoragePort storagePort,CampaignPersistencePort campaignPersistencePort) {
@@ -20,16 +20,21 @@ public class CreateOneCampaignService implements CreateOneCampaignServicePort {
         this.campaignPersistencePort = campaignPersistencePort;
     }
     @Override
-    public Campaign execute(Campaign campaign, File loginImage, File homeMessageImage) throws CampaignDuplicatedException, FileDuplicatedException {
+    public Campaign execute(Campaign campaign, File loginImage, File homeImage, File homeMessageImage) throws CampaignDuplicatedException, FileDuplicatedException {
         if (this.storagePort.existsOneFileByName(DIRECTORY, loginImage.getName())) {
+            throw new FileDuplicatedException("File with name '" + loginImage.getName() + "' already exists");
+        }
+        if (this.storagePort.existsOneFileByName(DIRECTORY, homeImage.getName())) {
             throw new FileDuplicatedException("File with name '" + loginImage.getName() + "' already exists");
         }
         if (this.storagePort.existsOneFileByName(DIRECTORY, homeMessageImage.getName())) {
             throw new FileDuplicatedException("File with name '" + homeMessageImage.getName() + "' already exists");
         }
         File loginImageFile = this.storagePort.createOneFile(DIRECTORY, loginImage);
+        File homeImageFile = this.storagePort.createOneFile(DIRECTORY, homeImage);
         File homeMessageImageFile = this.storagePort.createOneFile(DIRECTORY, homeMessageImage);
         campaign.setLoginImage(loginImageFile.getUrl());
+        campaign.setHomeImage(homeImageFile.getUrl());
         campaign.setHomeMessageImage(homeMessageImageFile.getUrl());
         return this.campaignPersistencePort.createOneCampaign(campaign);
     }

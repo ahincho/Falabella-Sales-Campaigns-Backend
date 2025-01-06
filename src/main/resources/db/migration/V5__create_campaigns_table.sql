@@ -1,6 +1,6 @@
 CREATE TABLE campaigns (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,

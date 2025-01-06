@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.0</version>
+		<version>3.4.1</version>
 		<relativePath/>
 	</parent>
 	<groupId>com.falabella.sales</groupId>
@@ -42,14 +42,10 @@
 	<properties>
 		<java.version>21</java.version>
 		<spring.docs.open.api.version>2.7.0</spring.docs.open.api.version>
-		<amazon.sdk.version>2.29.29</amazon.sdk.version>
+		<amazon.sdk.version>2.29.40</amazon.sdk.version>
 		<auth0.jwt.version>4.4.0</auth0.jwt.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -70,6 +66,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>

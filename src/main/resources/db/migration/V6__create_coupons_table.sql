@@ -13,6 +13,4 @@ CREATE TABLE coupons (
     CONSTRAINT fk_campaign FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON DELETE CASCADE
 );
 CREATE INDEX idx_coupons_type ON coupons(type);
-CREATE INDEX idx_coupons_code_bar ON coupons(code_bar);
-CREATE INDEX idx_coupons_code_web ON coupons(code_web);
 CREATE INDEX idx_coupons_status ON coupons(status);

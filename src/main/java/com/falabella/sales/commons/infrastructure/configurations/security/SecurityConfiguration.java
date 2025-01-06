@@ -7,7 +7,6 @@ import com.falabella.sales.commons.infrastructure.adapters.in.rest.advices.Custo
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -42,7 +41,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-            .httpBasic(Customizer.withDefaults())
             .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -65,8 +63,8 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200", "https://www.google.com"));
-        corsConfiguration.setAllowedMethods(List.of("*"));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200", "https://d27bd0gxh2xlld.cloudfront.net"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setMaxAge(3600L);

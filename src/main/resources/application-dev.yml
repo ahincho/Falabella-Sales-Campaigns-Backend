@@ -1,10 +1,13 @@
 aws:
   s3:
-    bucket-name: your-bucket-name
-    region: your-region
+    region: ${AWS_S3_REGION}
+    bucket: ${AWS_S3_BUCKET}
+  cloudfront:
+    endpoint: ${AWS_CLOUDFRONT_ENDPOINT}
   credentials:
-    access-key: your-access-key
-    secret-key: your-secret-key
+    keys:
+      access: ${AWS_CREDENTIALS_ACCESS_KEY}
+      secret: ${AWS_CREDENTIALS_ACCESS_SECRET}
 jwt:
   expires: ${JWT_EXPIRES:300000}
   secret: ${JWT_SECRET:a8127e4ac3051606e14599e584425b1e756b0be392a546111096c4946ca324f8}
